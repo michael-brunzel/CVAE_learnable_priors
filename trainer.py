@@ -2,15 +2,17 @@
 
 import torch
 import torch.nn as nn
+import os
 
 from model import CVAE_learnable_prior
+import utils
 
 
 class Trainer(object):
     def __init__(self, args, mnist):
         self.mnist = mnist
 
-        self.args = args
+        self.train_mode = args.train_mode
         self.training_steps = args.training_steps
         self.batch_size = args.batch_size
         self.beta_factor = args.KL_weight
@@ -20,6 +22,8 @@ class Trainer(object):
         self.lr = args.learning_rate
         self.model = CVAE_learnable_prior(arch_dict=self.arch_dict)
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=self.lr)
+
+        self.generate_digit = args.generate_digit
 
         # TODO: check whether the folder saved_models exists! --> otherwise create it
         self.save_path = "saved_models/CVAE_{}_Steps_beta_{}_lat_dim_{}_MNIST.pt".format(self.training_steps, self.beta_factor, self.arch_dict["latent_code"])
@@ -70,4 +74,12 @@ class Trainer(object):
             loss.backward()
             self.optimizer.step()
         #writer.close()
-        return model, final_outputs, mu, log_var, code_output, mu_prior, log_var_prior 
+        return self.model, final_outputs, mu, log_var, code_output, mu_prior, log_var_prior 
+
+    def generate_digit_samples(self, path_to_model_checkpoint, num_of_pics, digit):
+
+        loaded_model = utils.load_model(path_to_model_checkpoint=path_to_model_checkpoint)
+
+        if not os.path.exists("results_pics/"):
+            os.makedirs("results_pics/")
+        utils.generate_images(loaded_model=loaded_model, num_of_pics=num_of_pics, digit=digit)

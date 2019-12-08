@@ -2,8 +2,13 @@
 
 import torch
 import torch.nn as nn
+import os
 from torchvision.utils import save_image
 from tensorflow.examples.tutorials.mnist import input_data
+import importlib
+import trainer
+import utils
+#importlib.reload(utils)
 
 from trainer import Trainer
 
@@ -16,11 +21,18 @@ def main():
 
     mnist = input_data.read_data_sets("MNIST_data/",one_hot=True)
     arguments = args(args_dict=args_dict)
-    trainer = Trainer(args=arguments, mnist=mnist)
-    trainer.model.cuda()
-    model, final_outputs, mu, log_var, code_output, mu_prior, log_var_prior = trainer.train(training_steps=trainer.training_steps,batch_size=trainer.batch_size,
-                    beta_factor=trainer.beta_factor, dec_type=trainer.dec_type)
-    torch.save(model, trainer.save_path)
+    train_inst = Trainer(args=arguments, mnist=mnist)
+    train_inst.model.cuda()
+
+    if train_inst.train_mode:
+        model, final_outputs, mu, log_var, code_output, mu_prior, log_var_prior = train_inst.train(training_steps=train_inst.training_steps,batch_size=train_inst.batch_size,
+                        beta_factor=train_inst.beta_factor, dec_type=train_inst.dec_type)
+        if not os.path.exists("saved_models/"):
+            os.makedirs("saved_models/")
+        torch.save(model, train_inst.save_path)
+
+    if train_inst.generate_digit:
+        train_inst.generate_digit_samples(train_inst.save_path, num_of_pics=100, digit=8)
     
 
     
@@ -36,12 +48,14 @@ if __name__ == "__main__":
                 'dec_hidden2': 500,
                 'label_size': 10} # --> Input- und Hidden-Schicht muss um Größe des Label-Vektor (bei MNIST:10) erweitern werden
     
-    args_dict = {'training_steps': 10000,
+    args_dict = {'train_mode': False,
+                'training_steps': 10000,
                 'batch_size': 100,
                 'KL_weight': 5,
                 'dec_type':"Bernoulli",
                 'arch_dict': arch_dict,
                 'learning_rate': 0.001,
+                'generate_digit': True
                 }
 
     main()    

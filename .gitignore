@@ -6,6 +6,9 @@
 MNIST_data/
 __pycache__/
 
+saved_models/
+results_pics/
+
 # Ignore the monolithic script
 
 CVAE_with_learnable_priors.py
