@@ -36,7 +36,7 @@ class Trainer(object):
         if dec_type=="Gaussian":
             log_likelihood = (outputs - inputs).pow(2).mean() # If a Gaussian Decoder is used, the KL-Term should be downweighted 
 
-        # KL-Divergence between two Normal Distributions with diagonal covariance matrices (both are learned, since prior is learnable)
+        # KL-Divergence between two Normal Distributions with diagonal covariance matrices (both are learned, since prior is also learnable)
         KL_Divergence = -0.5 * torch.sum(1 + log_var_values_q - log_var_values_p - (( log_var_values_q.exp() + (mu_values_p - mu_values_q).pow(2)).div( log_var_values_p.exp()) ) ,1).mean() #/#, 1)
 
         overall_loss =  log_likelihood+ beta_factor*KL_Divergence  

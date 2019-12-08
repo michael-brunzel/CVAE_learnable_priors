@@ -12,8 +12,8 @@ import utils
 
 from trainer import Trainer
 
-
-class args(object): # --> a way of accessing dict-values like attributes
+# a way of accessing dict-values like attributes
+class args(object): 
     def __init__(self, args_dict):
         self.__dict__ = args_dict
 
@@ -46,7 +46,7 @@ if __name__ == "__main__":
                 'latent_code': 128,
                 'dec_hidden1': 500,
                 'dec_hidden2': 500,
-                'label_size': 10} # --> Input- und Hidden-Schicht muss um Größe des Label-Vektor (bei MNIST:10) erweitern werden
+                'label_size': 10} # 
     
     args_dict = {'train_mode': False,
                 'training_steps': 10000,
