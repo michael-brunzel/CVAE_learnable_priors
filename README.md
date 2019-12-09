@@ -2,11 +2,11 @@
 
 ### **Loss Function of a Variaional Autoencoder**
 
-![ELBO](pics/VAE_Loss.png)
+![ELBO](pics/VAE_Loss.PNG)
 
 ### **Loss Function of CVAE with learnable priors**
 
-![ELBO_modified](pics/CVAE_with_learnable_prior_Loss.png)
+![ELBO_modified](pics/CVAE_with_learnable_prior_Loss.PNG)
 
 ### **Examples for conditionally sampled digits**
 
