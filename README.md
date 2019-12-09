@@ -6,7 +6,7 @@
 
 ### **Loss Function of CVAE with learnable priors**
 
-![ELBO_modified](pics/CVAE_with_learnable_prior_Loss.PNG)
+![ELBO_modified](pics/CVAE_learnable_prior_Loss.PNG)
 
 ### **Examples for conditionally sampled digits**
 
