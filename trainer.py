@@ -24,8 +24,7 @@ class Trainer(object):
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=self.lr)
 
         self.generate_digit = args.generate_digit
-
-        # TODO: check whether the folder saved_models exists! --> otherwise create it
+        self.digit = args.digit 
         self.save_path = "saved_models/CVAE_{}_Steps_beta_{}_lat_dim_{}_MNIST.pt".format(self.training_steps, self.beta_factor, self.arch_dict["latent_code"])
 
 
@@ -54,17 +53,14 @@ class Trainer(object):
             self.optimizer.zero_grad()
             # 
             final_outputs, mu, log_var, code_output, mu_prior, log_var_prior = self.model(inputs, labels) # hier wird die forward-methode aufgerufen...
-            #print(final_outputs[:10,:])
             loss, KL_Div = self.compute_loss(outputs=final_outputs, inputs=inputs, mu_values_p=mu_prior, mu_values_q=mu, log_var_values_p=log_var_prior, log_var_values_q=log_var, beta_factor=beta_factor, dec_type=dec_type)
             
-            #print(loss.item())
             cum_loss = cum_loss + loss.item()
             std_mean = std_mean + log_var.mean().exp().sqrt().item()
 
 
             if steps%500==0 and steps>0:
-                #writer.add_scalar('Loss/train', cum_loss/500, steps)
-                #writer.add_scalar('Posterior_Std/train', std_mean/500, steps)
+
 
                 print(cum_loss/500)
                 print(std_mean/500)
@@ -73,8 +69,9 @@ class Trainer(object):
 
             loss.backward()
             self.optimizer.step()
-        #writer.close()
+
         return self.model, final_outputs, mu, log_var, code_output, mu_prior, log_var_prior 
+
 
     def generate_digit_samples(self, path_to_model_checkpoint, num_of_pics, digit):
 
@@ -82,4 +79,4 @@ class Trainer(object):
 
         if not os.path.exists("results_pics/"):
             os.makedirs("results_pics/")
-        utils.generate_images(loaded_model=loaded_model, num_of_pics=num_of_pics, digit=digit)
+        utils.generate_images(latent_dim=self.arch_dict['latent_code'], loaded_model=loaded_model, num_of_pics=num_of_pics, digit=digit)

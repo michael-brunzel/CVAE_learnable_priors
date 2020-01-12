@@ -5,12 +5,13 @@ import torch.nn as nn
 import os
 from torchvision.utils import save_image
 from tensorflow.examples.tutorials.mnist import input_data
-import importlib
-import trainer
-import utils
-#importlib.reload(utils)
 
+import trainer
 from trainer import Trainer
+
+import importlib
+#import utils
+#importlib.reload(utils) #---> modules have to be reloaded after changes!! 
 
 # a way of accessing dict-values like attributes
 class args(object): 
@@ -32,7 +33,7 @@ def main():
         torch.save(model, train_inst.save_path)
 
     if train_inst.generate_digit:
-        train_inst.generate_digit_samples(train_inst.save_path, num_of_pics=100, digit=8)
+        train_inst.generate_digit_samples(train_inst.save_path, num_of_pics=100, digit=train_inst.digit)
     
 
     
@@ -43,7 +44,7 @@ if __name__ == "__main__":
     arch_dict = {'in_out_size':784,
                 'enc_hidden1': 500,
                 'enc_hidden2': 500,
-                'latent_code': 128,
+                'latent_code': 256,
                 'dec_hidden1': 500,
                 'dec_hidden2': 500,
                 'label_size': 10} # 
@@ -55,8 +56,9 @@ if __name__ == "__main__":
                 'dec_type':"Bernoulli",
                 'arch_dict': arch_dict,
                 'learning_rate': 0.001,
+                'digit': 2,
                 'generate_digit': True
                 }
 
-    main()    
+    main()  
 
