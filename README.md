@@ -16,7 +16,12 @@
 ![Digit 8](pics/CVAE_MNIST_8.png)
 ![Digit 3](pics/CVAE_MNIST_3.png)
 
+<<<<<<< Updated upstream
 
+=======
+### One Example for mixed sampling from all digit-classes ###
+![Digit mixed](pics/CVAE_MNIST_mixed.png)
+>>>>>>> Stashed changes
 
 
 
