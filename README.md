@@ -19,5 +19,7 @@
 ### One example for mixed sampling from all digit-classes ###
 ![Digit mixed](pics/CVAE_MNIST_mixed.png)
 
+### References:
 
+Discriminative Variational Autoencoder for Continual Learning with Generative Replay: https://openreview.net/pdf?id=SJxjPxSYDH (Blind-Submission at the ICLR 2020)
 
