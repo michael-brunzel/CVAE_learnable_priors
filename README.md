@@ -16,7 +16,7 @@
 ![Digit 8](pics/CVAE_MNIST_8.png)
 ![Digit 3](pics/CVAE_MNIST_3.png)
 
-### One Example for mixed sampling from all digit-classes ###
+### One example for mixed sampling from all digit-classes ###
 ![Digit mixed](pics/CVAE_MNIST_mixed.png)
 
 
