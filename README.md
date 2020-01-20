@@ -21,8 +21,8 @@
 
 ### Requirements ###
 
-python 3.6.10  return
-torch 1.2.0+cu92  return
+python 3.6.10  <br />
+torch 1.2.0+cu92  <br />
 tensorflow 1.14
 ### References:
 
