@@ -19,5 +19,8 @@
 ### One Example for mixed sampling from all digit-classes ###
 ![Digit mixed](pics/CVAE_MNIST_mixed.png)
 
+### Requirements ###
 
-
+python 3.6.10
+torch 1.2.0+cu92
+tensorflow 1.14
