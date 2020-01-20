@@ -19,15 +19,12 @@
 ### One example for mixed sampling from all digit-classes ###
 ![Digit mixed](pics/CVAE_MNIST_mixed.png)
 
-<<<<<<< HEAD
 ### Requirements ###
 
 python 3.6.10
 torch 1.2.0+cu92
 tensorflow 1.14
-=======
 ### References:
 
 Discriminative Variational Autoencoder for Continual Learning with Generative Replay: https://openreview.net/pdf?id=SJxjPxSYDH (Blind-Submission at the ICLR 2020)
 
->>>>>>> 55f06cefcbdebee7410eacc330b85348765d4533
