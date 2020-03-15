@@ -30,8 +30,6 @@ def generate_images(latent_dim, loaded_model, num_of_pics, digit):
         mu_prior = loaded_model.prior_net_mu(torch.Tensor(labels).cuda())  #
         log_var_prior = loaded_model.prior_net_log_var(torch.Tensor(labels).cuda()) 
 
-        # weaker weights for epsilon --> e.g. 0.5 creates crisper digits, since number-clusters dont overlap!! 
-        # (model has no explicit incentive to strongly separate the number clusters)
         
         repam_latent_outputs = mu_prior + epsilon* (log_var_prior.exp()).sqrt() 
         samples = loaded_model.decode(repam_latent_outputs) # generates new data

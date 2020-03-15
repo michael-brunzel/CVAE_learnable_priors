@@ -20,19 +20,19 @@ class CVAE_learnable_prior(nn.Module):
     def build_encoder(self):
         self.layer1 = nn.Sequential(
             nn.Linear(self.arch_dict['in_out_size'], self.arch_dict['enc_hidden1'], bias=True),
-            nn.Softplus(),
+            nn.ReLU(),
             nn.Linear(self.arch_dict['enc_hidden1'], self.arch_dict['enc_hidden2'], bias=True), # 
-            nn.Softplus(),
+            nn.ReLU(),
             )
         self.mu = nn.Linear(self.arch_dict['enc_hidden2'], self.arch_dict['latent_code'])
         self.log_var = nn.Sequential( nn.Linear(self.arch_dict['enc_hidden2'], self.arch_dict['latent_code']),
-                                    nn.Softplus())
+                                    )
     
     def prior_network(self):
         self.prior_net_mu = nn.Linear(self.arch_dict['label_size'], self.arch_dict['latent_code'])
         self.prior_net_log_var = nn.Sequential(
                                     nn.Linear(self.arch_dict['label_size'], self.arch_dict['latent_code']),
-                                    nn.Softplus())
+                                    )
 
     def reparametrize (self, mu_values, log_var_values):
         epsilon =  torch.randn_like(log_var_values) # 
@@ -42,9 +42,9 @@ class CVAE_learnable_prior(nn.Module):
     def build_decoder(self):
         self.dec_layer = nn.Sequential( # 
             nn.Linear(self.arch_dict['latent_code'], self.arch_dict['enc_hidden1'], bias=True),
-            nn.Softplus(),
+            nn.ReLU(),
             nn.Linear(self.arch_dict['enc_hidden1'], self.arch_dict['enc_hidden2'], bias=True), # 
-            nn.Softplus(),
+            nn.ReLU(),
             nn.Linear(self.arch_dict['enc_hidden2'], self.arch_dict['in_out_size'], bias=True), # 
             )
             

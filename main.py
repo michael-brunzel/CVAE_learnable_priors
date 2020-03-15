@@ -11,9 +11,9 @@ from trainer import Trainer
 
 import importlib
 #import utils
-#importlib.reload(utils) #---> modules have to be reloaded after changes!! 
+#importlib.reload(utils) #
 
-# a way of accessing dict-values like attributes
+
 class args(object): 
     def __init__(self, args_dict):
         self.__dict__ = args_dict
